@@ -112,23 +112,33 @@ router.post("/applications/restore/:id", async (req, res) => {
 });
 
 router.post("/send-mail", async (req, res) => {
-  const { email, name, pdfData } = req.body;
-
-  if (!email || !name || !pdfData) {
-    return res.status(400).json({ error: "Missing required fields" });
-  }
-
   try {
+    const { email, name, pdfData } = req.body;
+
+    if (!email || !pdfData) {
+      return res.status(400).json({ error: "Missing email or PDF data" });
+    }
+
     await transporter.sendMail({
       from: '"V Believers HR" <pallemaheshreddy200@gmail.com>',
       to: email,
       subject: `Selection Letter - ${name}`,
       text: `Dear ${name},\n\nPlease find your Selection Letter attached.`,
       attachments: [{
-  filename: `${name}_Letter.pdf`,
-  content: pdfData.split("base64,")[1],
-  encoding: "base64"
-}]
+        filename: `${name}_Selection_Letter.pdf`,
+        content: pdfData.split("base64,")[1],
+        encoding: "base64"
+      }]
+    });
+
+    res.json({ message: "Email Sent Successfully" });
+
+  } catch (err) {
+    console.error("MAIL ERROR:", err);
+    res.status(400).json({ error: err.message });
+  }
+});
+
 
 
     await new Log({
