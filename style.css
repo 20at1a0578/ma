@@ -183,18 +183,7 @@ td button:nth-child(3) { background:#10b981; color:white; }    /* Letter - green
   width:100%;
   overflow-x:auto;
 }
-/* Fix placeholders not visible on mobile */
-input::placeholder,
-select::placeholder {
-  color: #ff12;      /* Make placeholder clearly visible */
-  opacity: 1;          /* Override mobile default faint look */
-  font-size: 14px;
-}
 
-/* Improve date input text visibility on mobile */
-input[type="date"] {
-  color: #ff12;
-}
 
 
 
