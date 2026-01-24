@@ -45,7 +45,7 @@ const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 465,
   secure: true,
-  auth: { user: "pallemaheshreddy200@gmail.com", pass: "ybdt bvjm ykpg ocai" }
+  auth: { user: "vbmarketingpvt.ltd@gmail.com", pass: "fhrg yvvp rvfo gybp" }
 });
 
 /* ================= AUTH ================= */
@@ -113,7 +113,7 @@ router.post("/send-mail", async (req, res) => {
     }
 
     await transporter.sendMail({
-      from: '"V Believers HR" <pallemaheshreddy200@gmail.com>',
+      from: '"V Believers HR" <vbmarketingpvt.ltd@gmail.com>',
       to: email,
       subject: `Selection Letter - ${name}`,
       text: `Dear ${name},
