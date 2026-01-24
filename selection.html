@@ -151,7 +151,7 @@ window.onload = function() {
 // 2. Generate PDF and Send via API
 async function sendEmail() {
     const btn = document.querySelector(".email-btn");
-    
+
     if (!window.currentEmail) {
         alert("❌ Error: No email found for this applicant.");
         return;
@@ -165,41 +165,33 @@ async function sendEmail() {
         const element = document.querySelector(".letter");
 
         const canvas = await html2canvas(element, { scale: 2, useCORS: true });
-        const imgData = canvas.toDataURL('image/jpeg',0.7);
+        const imgData = canvas.toDataURL('image/jpeg', 0.7);
 
         const pdf = new jsPDF('p', 'mm', 'a4');
         pdf.addImage(imgData, 'JPEG', 0, 0, 210, 297);
         const pdfBase64 = pdf.output('datauristring');
 
         const name = document.getElementById("name").innerText;
-        // Get letter content as HTML for email body
         const letterHTML = document.querySelector(".content").innerHTML;
 
         const response = await fetch('/api/send-mail', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-    email: window.currentEmail,
-    name: name,
-    pdfData: pdfBase64,
-    letterHTML: `
-        <div style="font-family: Times New Roman, serif; line-height:1.6;">
-            ${letterHTML}
-        </div>
-    `
-})
-
+                email: window.currentEmail,
+                name: name,
+                pdfData: pdfBase64,
+                letterHTML: `<div style="font-family: Times New Roman, serif; line-height:1.6;">${letterHTML}</div>`
+            })
+        });
 
         if (response.ok) {
             alert("✅ Success! Letter sent to " + window.currentEmail);
         } else {
-            let msg = "Check server logs";
-            try {
-                const errorData = await response.json();
-                msg = errorData.error || msg;
-            } catch (e) {}
-            alert("❌ Failed: " + msg);
+            const errorData = await response.json().catch(() => ({}));
+            alert("❌ Failed: " + (errorData.error || "Server error"));
         }
+
     } catch (err) {
         console.error(err);
         alert("❌ Error: Could not connect to the server.");
@@ -208,10 +200,12 @@ async function sendEmail() {
         btn.disabled = false;
     }
 }
+
 </script>
 
 </body>
 </html>
+
 
 
 
