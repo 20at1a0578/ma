@@ -49,7 +49,7 @@ function renderTable(data) {
         const actionButtons = isBinOpen 
             ? `<button onclick="restoreApp('${d._id}')">✅ Restore</button>` 
             : `<button onclick="editApp('${d._id}')">Edit</button>
-               <button onclick="letterApp('${JSON.stringify(d).replace(/"/g, '&quot;')}')">Letter</button>
+               <button onclick="letterApp('${d._id}')">Letter</button>
                <button onclick="deleteApp('${d._id}')">🗑 Delete</button>`;
 
         tableBody.innerHTML += `
@@ -180,4 +180,5 @@ $("clearFilters").onclick = () => {
 
 fillDropdowns();
 loadData();
+
 
