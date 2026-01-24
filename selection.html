@@ -125,14 +125,18 @@ window.onload = function() {
     } catch (e) {
         console.error("Invalid letterData in localStorage", e);
     }
-
+    // --- NEW DATE FORMATTING LOGIC ---
+    function formatDate(dateStr) {
+        if (!dateStr || !dateStr.includes("-")) return dateStr || "DD-MM-YYYY";
+        const [year, month, day] = dateStr.split("-");
+        return `${day}-${month}-${year}`;
     // MAP THE DATA TO THE HTML IDs
     // Note: If your MongoDB uses different keys (like 'stu_name'), change the right side below.
     document.getElementById("regNo").textContent = data.regNo || "N/A";
     document.getElementById("name").textContent = data.name || "N/A";
     document.getElementById("district").textContent = data.district || "N/A";
     document.getElementById("phone").textContent = data.phone || "N/A";
-    document.getElementById("circleDate").textContent = data.circleDate || "DD/MM/YYYY";
+    document.getElementById("circleDate").textContent = formatDate(data.circleDate)|| "DD/MM/YYYY";
     
     // Set Document Title
     document.getElementById("docTitle").textContent = (data.name || "Applicant") + " - Selection Letter";
@@ -205,6 +209,7 @@ async function sendEmail() {
 
 </body>
 </html>
+
 
 
 
