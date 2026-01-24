@@ -178,3 +178,10 @@ td button:nth-child(3) { background:#10b981; color:white; }    /* Letter - green
 
   th, td { font-size: 12px; padding: 6px; }
 }
+/* ===== Mobile Table Scroll Fix ===== */
+.table-wrapper{
+  width:100%;
+  overflow-x:auto;
+}
+
+
