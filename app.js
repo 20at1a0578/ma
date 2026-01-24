@@ -163,12 +163,20 @@ $("openBinBtn").onclick = () => {
     $("openBinBtn").innerText = isBinOpen ? "📁 View Active" : "🗑 Open Bin";
     loadData();
 };
+window.letterApp = async (id) => {
+    const response = await fetch(`${API_URL}/applications?bin=false`);
+    const apps = await response.json();
+    const app = apps.find(a => a._id === id);
 
-window.letterApp = (dataStr) => {
-    const data = JSON.parse(dataStr);
-    localStorage.setItem("letterData", JSON.stringify(data));
+    if (!app) {
+        alert("❌ Could not load application data");
+        return;
+    }
+
+    localStorage.setItem("letterData", JSON.stringify(app));
     window.location.href = "selection.html";
 };
+
 
 $("filterBranch").onchange = () => loadData();
 $("filterStatus").onchange = () => loadData();
@@ -180,5 +188,6 @@ $("clearFilters").onclick = () => {
 
 fillDropdowns();
 loadData();
+
 
 
