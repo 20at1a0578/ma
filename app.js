@@ -40,7 +40,11 @@ function fillDropdowns() {
 function renderTable(data) {
     tableBody.innerHTML = "";
     const fb = $("filterBranch").value, fs = $("filterStatus").value, fbr = $("filterBridge").value;
-
+    const fmtDate = (d) => {
+        if (!d || !d.includes("-")) return d;
+        const [y, m, day] = d.split("-");
+        return `${day}-${m}-${y}`; // Change format to DD-MM-YYYY
+    };
     data.forEach(d => {
         if (fb && d.branch !== fb) return;
         if (fs && d.status !== fs) return;
@@ -188,6 +192,7 @@ $("clearFilters").onclick = () => {
 
 fillDropdowns();
 loadData();
+
 
 
 
