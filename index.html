@@ -17,9 +17,10 @@
   <input type="hidden" id="docId">
   <input id="name" placeholder="Applicant Name" required>
   <input id="fatherName" placeholder="Father Name">
-  <input id="dob" type="date">
+  <input id="dob" type="date" placeholder="DD-MM-YYYY" onfocus="this.showPicker && this.showPicker()">
+
   <input id="qualification" placeholder="Qualification">
-  <input id="circleDate" type="date">
+  <input id="circleDate" type="date" placeholder="DD-MM-YYYY" onfocus="this.showPicker && this.showPicker()">
 
   <select id="gender">
     <option value="">Select Gender</option>
@@ -96,5 +97,6 @@
 </body>
 
 </html>  
+
 
 
