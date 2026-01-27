@@ -113,38 +113,35 @@ p{ margin:6px 0 6px 8px; text-align:justify; }
 </div>
 
 <script>
-// 1. Load data automatically when the page opens
 window.onload = function() {
     let data = {};
     try {
         const dataStr = localStorage.getItem("letterData");
         if (dataStr) {
             data = JSON.parse(dataStr);
-            console.log("Retrieved Data:", data); // Check your console (F12) to see the key names
+            console.log("Retrieved Data:", data);
         }
     } catch (e) {
         console.error("Invalid letterData in localStorage", e);
     }
-    // --- NEW DATE FORMATTING LOGIC ---
+
+    // ✅ FIXED: Properly closed function
     function formatDate(dateStr) {
         if (!dateStr || !dateStr.includes("-")) return dateStr || "DD-MM-YYYY";
         const [year, month, day] = dateStr.split("-");
         return `${day}-${month}-${year}`;
-    // MAP THE DATA TO THE HTML IDs
-    // Note: If your MongoDB uses different keys (like 'stu_name'), change the right side below.
+    }
+
     document.getElementById("regNo").textContent = data.regNo || "N/A";
     document.getElementById("name").textContent = data.name || "N/A";
     document.getElementById("district").textContent = data.district || "N/A";
     document.getElementById("phone").textContent = data.phone || "N/A";
-    document.getElementById("circleDate").textContent = formatDate(data.circleDate)|| "DD/MM/YYYY";
-    
-    // Set Document Title
+    document.getElementById("circleDate").textContent = formatDate(data.circleDate) || "DD-MM-YYYY";
+
     document.getElementById("docTitle").textContent = (data.name || "Applicant") + " - Selection Letter";
-    
-    // Store email for the sendEmail function
+
     window.currentEmail = data.email || null;
 
-    // GOOGLE MAPS LINK: Dynamically set based on branch
     const mapLinks = {
         "Kurnool": "https://goo.gl/maps/example1",
         "Hyderabad": "https://goo.gl/maps/example2",
@@ -152,7 +149,8 @@ window.onload = function() {
     };
     document.getElementById("mapLink").href = mapLinks[data.branch] || "https://www.google.com/maps";
 };
-// 2. Generate PDF and Send via API
+
+// 📧 SEND EMAIL FUNCTION
 async function sendEmail() {
     const btn = document.querySelector(".email-btn");
 
@@ -176,7 +174,6 @@ async function sendEmail() {
         const pdfBase64 = pdf.output('datauristring');
 
         const name = document.getElementById("name").innerText;
-        const letterHTML = document.querySelector(".content").innerHTML;
 
         const response = await fetch('/api/send-mail', {
             method: 'POST',
@@ -184,8 +181,7 @@ async function sendEmail() {
             body: JSON.stringify({
                 email: window.currentEmail,
                 name: name,
-                pdfData: pdfBase64,
-                letterHTML: `<div style="font-family: Times New Roman, serif; line-height:1.6;">${letterHTML}</div>`
+                pdfData: pdfBase64
             })
         });
 
@@ -204,11 +200,11 @@ async function sendEmail() {
         btn.disabled = false;
     }
 }
-
 </script>
 
 </body>
 </html>
+
 
 
 
