@@ -143,11 +143,16 @@ window.onload = function() {
     window.currentEmail = data.email || null;
 
     const mapLinks = {
-        "Kurnool": "https://goo.gl/maps/example1",
-        "Hyderabad": "https://goo.gl/maps/example2",
-        "Kalahasthi": "https://goo.gl/maps/example3"
+        "Kurnool": "https://maps.app.goo.gl/gCWqckhHgxwSEnmf9",
+        "Hyderabad1": "https://maps.app.goo.gl/6quN7j8H55YShyLx8",
+        "Hyderabad2": "https://maps.app.goo.gl/B5taGhyEiw2aBg66A",
+        "Kalahasthi": "https://maps.app.goo.gl/UowCoAtHoXbLeKDf6"
     };
-    document.getElementById("mapLink").href = mapLinks[data.branch] || "https://www.google.com/maps";
+    
+document.getElementById("map1").href = mapLinks.Kurnool;
+document.getElementById("map2").href = mapLinks.Hyderabad1;
+document.getElementById("map3").href = mapLinks.Hyderabad2;
+document.getElementById("map5").href = mapLinks.Kalahasthi;
 };
 
 // 📧 SEND EMAIL FUNCTION
@@ -204,6 +209,7 @@ async function sendEmail() {
 
 </body>
 </html>
+
 
 
 
