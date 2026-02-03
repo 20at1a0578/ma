@@ -11,7 +11,7 @@ window.logout = () => {
     window.location.href = "auth.html";
 };
 
-const branches = ["Kurnool", "Hyderabad", "Kalahasthi", "HYD-->KNL"];
+const branches = ["Kurnool", "Hyderabad1", "Hyderabad2", "Kalahasthi",];
 const bridges = ["Veera", "Ramana", "Jyothi Sai", "Mythri", "Vishnu", "Mahesh", "Asish", "Rishik"];
 
 const $ = id => document.getElementById(id);
@@ -192,6 +192,7 @@ $("clearFilters").onclick = () => {
 
 fillDropdowns();
 loadData();
+
 
 
 
