@@ -143,12 +143,14 @@ window.onload = function() {
     window.currentEmail = data.email || null;
 
     const mapLinks = {
-        "Kurnool": "https://maps.app.goo.gl/gCWqckhHgxwSEnmf9",
-        "Hyderabad1": "https://maps.app.goo.gl/6quN7j8H55YShyLx8",
+        "Kurnool": "https://maps.app.goo.gl/TVFiSap2dGzCM9Lj7",
+        "Hyderabad1": "https://maps.app.goo.gl/rpUcuiWzekY2xMf27",
         "Hyderabad2": "https://maps.app.goo.gl/B5taGhyEiw2aBg66A",
         "Kalahasthi": "https://maps.app.goo.gl/UowCoAtHoXbLeKDf6"
     };
-    
+  const mapLinkEl = document.getElementById("mapLink");
+mapLinkEl.href = mapLinks[data.branch] || "https://www.google.com/maps";
+mapLinkEl.innerText = "📍 View Training Location on Google Maps";
 document.getElementById("map1").href = mapLinks.Kurnool;
 document.getElementById("map2").href = mapLinks.Hyderabad1;
 document.getElementById("map3").href = mapLinks.Hyderabad2;
@@ -176,6 +178,12 @@ async function sendEmail() {
 
         const pdf = new jsPDF('p', 'mm', 'a4');
         pdf.addImage(imgData, 'JPEG', 0, 0, 210, 297);
+      // 🔗 Make map link clickable in PDF
+const mapUrl = document.getElementById("mapLink").href;
+
+// x, y, width, height (adjust if needed)
+pdf.link(70, 210, 70, 8, { url: mapUrl });
+
         const pdfBase64 = pdf.output('datauristring');
 
         const name = document.getElementById("name").innerText;
@@ -209,6 +217,7 @@ async function sendEmail() {
 
 </body>
 </html>
+
 
 
 
