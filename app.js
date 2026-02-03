@@ -12,6 +12,34 @@ window.logout = () => {
 };
 
 const branches = ["Kurnool", "Hyderabad1", "Hyderabad2", "Kalahasthi",];
+// 🔹 ADD BRIDGE BUTTON LOGIC
+const addBridgeBtn = document.getElementById("addBridgeBtn");
+
+if (addBridgeBtn) {
+    addBridgeBtn.onclick = () => {
+        const newBridge = prompt("Enter new Bridge name:");
+
+        if (!newBridge) return;
+
+        // Prevent duplicates (case-insensitive)
+        const exists = bridges.some(
+            b => b.toLowerCase() === newBridge.toLowerCase()
+        );
+
+        if (exists) {
+            alert("⚠️ Bridge already exists");
+            return;
+        }
+
+        bridges.push(newBridge);
+
+        // Refresh dropdowns
+        fillDropdowns();
+
+        alert(`✅ Bridge "${newBridge}" added successfully`);
+    };
+}
+
 const bridges = ["Veera", "Ramana", "Jyothi Sai", "Mythri", "Vishnu", "Mahesh", "Asish", "Rishik"];
 
 const $ = id => document.getElementById(id);
@@ -192,6 +220,7 @@ $("clearFilters").onclick = () => {
 
 fillDropdowns();
 loadData();
+
 
 
 
